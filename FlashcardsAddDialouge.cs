@@ -14,12 +14,12 @@ namespace ComSciProject
     public partial class FlashcardsAddDialouge : Form
     {
         
-        loginmanager logman = new loginmanager();
         int mId;
         FlashcardsMenu flashcardMenu;
-        public FlashcardsAddDialouge()
+        public FlashcardsAddDialouge(int id)
         {
-            mId = logman.getCurLID();
+
+            mId = id;
             InitializeComponent();
             downloadCourses(mId);
         }
@@ -62,7 +62,7 @@ namespace ComSciProject
 
                 while (reader.Read())
                 {
-                    this.comboBox1.Items.Add(reader.GetInt32(1) + " | " + reader.GetString(0));
+                    this.comboBox1.Items.Add(reader.GetString(0));
                 }
                 reader.NextResult();
             }
@@ -122,13 +122,20 @@ namespace ComSciProject
 
             #endregion
 
-            #region get MemberId
-
-            cmId = logman.getCurLID();
+            #region get cid
+            String cidQuery = $"Select cId from courses where cName = '{comboBox1.SelectedItem.ToString()}'";
+            int cId = 0;
+            con.Open();
+            cmd = new SqlCommand(cidQuery, con);
+            reader = cmd.ExecuteReader();
+            while(reader.Read())cId = reader.GetInt32(0);
+            con.Close();
 
             #endregion
 
-            String uploadQuery = $"INSERT INTO flashcards(fId, mId, Question, Answer) VALUES({nfId}, {cmId}, '{qString}', '{aString}')";
+            String uploadQuery;
+            if (comboBox1.SelectedItem == null) uploadQuery = $"INSERT INTO flashcards(fId, mId, Question, Answer) VALUES({nfId}, {mId}, '{qString}', '{aString}')";
+            else uploadQuery = $"Insert into flashcards(fId, mId, Question, Answe, cId) Values({nfId}, {mId}, '{qString}', '{aString}, {cId})";
             con.Open();
             cmd = new SqlCommand(uploadQuery, con);
             cmd.ExecuteNonQuery();
@@ -141,7 +148,7 @@ namespace ComSciProject
         {
             //upload Flashcard to database
             uploadFlashcard(this.textBox1.Text, this.textBox2.Text);
-            flashcardMenu = new FlashcardsMenu(logman.getCurLID());
+            flashcardMenu = new FlashcardsMenu(mId);
             flashcardMenu.Show();
             this.Hide();
         }

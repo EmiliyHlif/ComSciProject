@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -14,13 +15,17 @@ namespace ComSciProject
     public partial class CoursesMenu : Form
 
     {
+
+        public QuizForm quiz;
         public Menu menu;
         public CourseCreateDialouge cadd;
+        public int mid;
 
         public CoursesMenu(int cmId)
         {
+            mid = cmId;
             InitializeComponent();
-            downloadCourses(cmId);
+            downloadCourses(mid);
         }
 
         public void downloadCourses(int mId)
@@ -60,7 +65,7 @@ namespace ComSciProject
 
                 while (reader.Read())
                 {
-                    this.checkedListBox1.Items.Add(reader.GetInt32(1) + " | " + reader.GetString(0));
+                    this.checkedListBox1.Items.Add(reader.GetString(0));
                 }
                 reader.NextResult();
             }
@@ -81,7 +86,7 @@ namespace ComSciProject
 
         private void button4_Click(object sender, EventArgs e)
         {
-            menu = new Menu();
+            menu = new Menu(mid);
             menu.Show();
             this.Hide();
         }
@@ -90,7 +95,7 @@ namespace ComSciProject
 
         private void button1_Click(object sender, EventArgs e)
         {
-            cadd = new CourseCreateDialouge();
+            cadd = new CourseCreateDialouge(mid);
             this.Hide();
             cadd.Show();        
         }
@@ -103,6 +108,45 @@ namespace ComSciProject
         private void checkedListBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (this.checkedListBox1.SelectedItems.Count > 1 || this.checkedListBox1.SelectedItems.Count == 0) {
+                
+                label2.Visible = true;
+                return;
+            }
+            else
+            {
+             
+
+                String readQuery;
+                int courseId = 0;
+
+                SqlConnection con = new SqlConnection(databaseCon.getCon());
+                SqlCommand cmd;
+                SqlDataReader reader;
+
+                readQuery = $"SELECT cId FROM Courses WHERE cName = '{this.checkedListBox1.SelectedItem.ToString()}'";
+                cmd = new SqlCommand(readQuery, con);
+                con.Open();
+                reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    courseId = (int)reader.GetInt32(0);
+                }
+                con.Close();
+
+                if (courseId <= 0) label2.Text = "no course found with that ID.";
+                else
+                {
+                    quiz = new QuizForm(courseId, false);
+                    this.Hide();
+                    quiz.Show();
+                }
+            }
         }
     }
 }

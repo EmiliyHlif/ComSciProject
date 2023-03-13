@@ -60,6 +60,12 @@
     <Compile Include="EditFlashcardDialouge.Designer.cs">
       <DependentUpon>EditFlashcardDialouge.cs</DependentUpon>
     </Compile>
+    <Compile Include="endScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="endScreen.Designer.cs">
+      <DependentUpon>endScreen.cs</DependentUpon>
+    </Compile>
     <Compile Include="Flashcard.cs" />
     <Compile Include="CoursesMenu.cs">
       <SubType>Form</SubType>
@@ -79,7 +85,12 @@
     <Compile Include="FlashcardsMenu.Designer.cs">
       <DependentUpon>FlashcardsMenu.cs</DependentUpon>
     </Compile>
-    <Compile Include="loginmanager.cs" />
+    <Compile Include="LoginScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LoginScreen.Designer.cs">
+      <DependentUpon>LoginScreen.cs</DependentUpon>
+    </Compile>
     <Compile Include="Menu.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -94,6 +105,12 @@
     <Compile Include="QuizForm.Designer.cs">
       <DependentUpon>QuizForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserRegistration.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserRegistration.Designer.cs">
+      <DependentUpon>UserRegistration.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="CourseCreateDialouge.resx">
       <DependentUpon>CourseCreateDialouge.cs</DependentUpon>
     </EmbeddedResource>
@@ -103,11 +120,17 @@
     <EmbeddedResource Include="EditFlashcardDialouge.resx">
       <DependentUpon>EditFlashcardDialouge.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="endScreen.resx">
+      <DependentUpon>endScreen.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FlashcardsAddDialouge.resx">
       <DependentUpon>FlashcardsAddDialouge.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FlashcardsMenu.resx">
       <DependentUpon>FlashcardsMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LoginScreen.resx">
+      <DependentUpon>LoginScreen.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Menu.resx">
       <DependentUpon>Menu.cs</DependentUpon>
@@ -123,6 +146,9 @@
     </Compile>
     <EmbeddedResource Include="QuizForm.resx">
       <DependentUpon>QuizForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserRegistration.resx">
+      <DependentUpon>UserRegistration.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

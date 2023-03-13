@@ -9,21 +9,21 @@ using System.Drawing;
 
 namespace ComSciProject
 {
-    internal class Course 
+    public class Course 
     {
         public Flashcard[] flashcards;
         public int creatorId;
         public int courseId;
         public String courseName;
         public String courseDesc;
-        public ArrayList caste1;
-        public ArrayList caste2;
+        public List<Flashcard> caste1;
+        public List<Flashcard> caste2;
         public int courseSize;
 
         public Course(int i)
         {
-            caste1 = new ArrayList();
-            caste2 = new ArrayList();
+            caste1 = new List<Flashcard>();
+            caste2 = new List<Flashcard>();
             loadCourseByCid(i);
             downloadFlashcards();
             sortFlashcards();
@@ -45,7 +45,7 @@ namespace ComSciProject
             int courseCount = 0;
             while (reader.Read())
             {
-                courseCount = reader.GetInt16(0);
+                courseCount = reader.GetInt32(0);
             }
             con.Close();
 
@@ -60,7 +60,7 @@ namespace ComSciProject
 
                 while(reader.Read())
                 {
-                    courseSize = reader.GetInt16(0);
+                    courseSize = reader.GetInt32(0);
                 }
                 con.Close();
                 #endregion
@@ -99,7 +99,7 @@ namespace ComSciProject
 
                 while (reader.Read())
                 {
-                    creatorId = reader.GetInt16(0);
+                    creatorId = reader.GetInt32(0);
                 }
                 con.Close();
                 #endregion

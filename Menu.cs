@@ -12,13 +12,12 @@ namespace ComSciProject
 {
     public partial class Menu : Form
     {
-        private loginmanager logMan = new loginmanager();
         public FlashcardsMenu fMenu;
         public CoursesMenu cMenu;
         int cmId;
-        public Menu()
+        public Menu(int id)
         {
-            cmId = logMan.getCurLID();
+            cmId = id;
             InitializeComponent();
         }
 

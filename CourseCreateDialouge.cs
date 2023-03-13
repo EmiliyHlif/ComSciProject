@@ -13,8 +13,10 @@ namespace ComSciProject
 {
     public partial class CourseCreateDialouge : Form
     {
-        public CourseCreateDialouge()
+        int mid;
+        public CourseCreateDialouge(int cmid)
         {
+            mid = cmid;
             InitializeComponent();
         }
 
@@ -23,7 +25,6 @@ namespace ComSciProject
 
         }
 
-         loginmanager loginMan = new loginmanager();
 
         public void createCourses(String cName, String cDescription)
         {
@@ -52,7 +53,6 @@ namespace ComSciProject
 
                 #region get MemberId
 
-                cmId = loginMan.getCurLID();
 
             #endregion
 
@@ -83,7 +83,7 @@ namespace ComSciProject
             }
             
 
-            String uploadQuery = $"INSERT INTO Courses(cId, mId, cName, cDescription) VALUES({ncId}, {cmId}, '{cName}', '{cDescription}')";
+            String uploadQuery = $"INSERT INTO Courses(cId, mId, cName, cDescription) VALUES({ncId}, {mid}, '{cName}', '{cDescription}')";
                 con.Open();
                 cmd = new SqlCommand(uploadQuery, con);
                 cmd.ExecuteNonQuery();
@@ -96,7 +96,7 @@ namespace ComSciProject
         private void button1_Click(object sender, EventArgs e)
         {
             createCourses(this.textBox1.Text, this.textBox2.Text);
-            courseMenu = new CoursesMenu(loginMan.getCurLID());
+            courseMenu = new CoursesMenu(mid);
             courseMenu.Show();
             this.Hide();
         }

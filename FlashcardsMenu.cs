@@ -15,8 +15,10 @@ namespace ComSciProject
 {
     public partial class FlashcardsMenu : Form {
 
+        public int mid;
+
         public EditFlashcardDialouge eFcDia;
-        public FlashcardsAddDialouge fcDia = new FlashcardsAddDialouge();
+        public FlashcardsAddDialouge fcDia;
         public Menu menu;
         public Flashcard selectedFlashcard = null;
         public Flashcard[] flashcardArray;
@@ -25,10 +27,11 @@ namespace ComSciProject
         public SqlDataReader reader;
         public SqlConnection con = new SqlConnection(databaseCon.getCon());
 
-        public FlashcardsMenu(int mId)
+        public FlashcardsMenu(int cmId)
         {
+            mid = cmId;
             InitializeComponent();
-            downloadFlashcards(mId);
+            downloadFlashcards(mid);
         }
 
         void fillFlashcardArray(int mId, int flashcardAmount)
@@ -116,7 +119,7 @@ namespace ComSciProject
 
         private void button4_Click(object sender, EventArgs e)
         {
-            menu = new Menu();
+            menu = new Menu(mid);
             menu.Show();
             this.Hide();
         }
@@ -176,6 +179,7 @@ namespace ComSciProject
         private void button1_Click(object sender, EventArgs e)
 
         {
+            fcDia = new FlashcardsAddDialouge(mid);
             this.Close();
             fcDia.Show();
         }
